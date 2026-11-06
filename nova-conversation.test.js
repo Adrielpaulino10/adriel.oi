@@ -20,6 +20,16 @@ test('clasifica preguntas de explicación sin confundirlas con una orden de inve
     assert.ok(intenciones.tareas.includes('consultas'));
 });
 
+test('reconoce consultas de ventas, fiados, clientes y caja como administración del negocio', () => {
+    for (const pregunta of [
+        '¿Cuánto vendimos este mes?',
+        '¿Qué clientes tienen fiados?',
+        '¿Cuánto dinero hay en caja?'
+    ]) {
+        assert.ok(analizarIntenciones(pregunta).tareas.includes('administracion'), pregunta);
+    }
+});
+
 test('combina estadísticas, hallazgos y recomendaciones con valores proporcionados por el inventario', () => {
     const intenciones = analizarIntenciones('Analiza el inventario, revisa problemas, estadísticas y dame cinco recomendaciones.');
     const respuesta = construirRespuestaAnalisis({

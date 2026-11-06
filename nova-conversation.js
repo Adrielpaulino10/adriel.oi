@@ -29,6 +29,7 @@
             ['novedades', /\b(novedades?|que hay de nuevo|que hay nuevo|que cambio|que ha cambiado)\b/],
             ['consultas', /\b(consulta|consultar|busca|buscar|muestra|mostrar|cuanto|cuantos|cuanta|cuantas|stock|existencias|productos?|inventario)\b/],
             ['historial', /\b(historial|movimientos?|entradas?|salidas?)\b/],
+            ['administracion', /\b(punto de venta|ventas?|vendi|vendimos|vendieron|vendido|fiados?|deudas?|deben|debe|debo|clientes?|caja|cierre de caja|efectivo|gastos?|egresos?|cobros?|abonos?|pagos pendientes|saldo pendiente)\b/],
             ['explicaciones', /\b(explica|explicame|significa|como funciona|por que|porque)\b/]
         ];
         patrones.forEach(([intencion, patron]) => {

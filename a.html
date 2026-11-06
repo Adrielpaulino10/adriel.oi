@@ -1514,23 +1514,520 @@
                 content: none;
             }
         }
+
+        :root {
+            color-scheme: light;
+            --brand: #6941e8;
+            --brand-dark: #5431cc;
+            --brand-soft: #f0ebff;
+            --ink: #202033;
+            --muted: #73738b;
+            --surface: #ffffff;
+            --canvas: #f7f7fb;
+            --line: #e8e7f0;
+            --shadow: 0 8px 26px rgba(34, 24, 72, 0.055);
+            --radius: 18px;
+        }
+
+        [data-theme="dark"] {
+            color-scheme: dark;
+            --brand: #a48aff;
+            --brand-dark: #9272f4;
+            --brand-soft: #2b2441;
+            --ink: #f3f1fa;
+            --muted: #aaa5bd;
+            --surface: #191824;
+            --canvas: #111019;
+            --line: #302d3d;
+            --shadow: 0 10px 32px rgba(0, 0, 0, 0.22);
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 32px;
+            background: var(--canvas);
+            color: var(--ink);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            letter-spacing: -0.01em;
+        }
+
+        .container {
+            width: min(100%, 1500px);
+            max-width: none;
+            margin: 0 auto;
+        }
+
+        .header {
+            min-height: 58px;
+            margin-bottom: 28px;
+            color: var(--ink);
+        }
+
+        .header h1 {
+            font-size: clamp(1.35rem, 2vw, 1.75rem);
+            font-weight: 750;
+            letter-spacing: -0.055em;
+        }
+
+        .tabs {
+            position: fixed;
+            z-index: 30;
+            top: 24px;
+            bottom: 24px;
+            left: 24px;
+            display: flex;
+            width: 232px;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            gap: 7px;
+            margin: 0;
+            padding: 18px 12px;
+            overflow-y: auto;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+        }
+
+        .tabs::before {
+            content: attr(data-section);
+            display: flex;
+            min-height: 46px;
+            align-items: center;
+            margin: 0 8px 18px;
+            padding: 0 8px 15px;
+            border-bottom: 1px solid var(--line);
+            color: var(--brand);
+            font-size: 0.77rem;
+            font-weight: 800;
+            letter-spacing: 0.11em;
+        }
+
+        .tab-btn {
+            display: flex;
+            width: 100%;
+            min-height: 46px;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            background: transparent;
+            color: var(--muted);
+            font: inherit;
+            font-size: 0.9rem;
+            font-weight: 620;
+            text-align: left;
+            transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+        }
+
+        .tab-btn:hover {
+            transform: none;
+            border-color: var(--line);
+            background: var(--canvas);
+            box-shadow: none;
+            color: var(--ink);
+        }
+
+        .tab-btn.active {
+            border-color: rgba(105, 65, 232, 0.12);
+            background: var(--brand-soft);
+            color: var(--brand);
+        }
+
+        [data-theme="light"] .tab-btn.active { color: var(--brand); }
+
+        .nav-icon {
+            width: 18px;
+            height: 18px;
+            flex: 0 0 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.7;
+        }
+
+        .tab-content.active {
+            animation: fadeIn 180ms ease-out;
+        }
+
+        .card,
+        .comparison-section,
+        .transactions-section,
+        .movement-section,
+        .forecast-panel,
+        .assistant-panel,
+        .modal-content {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--surface);
+            box-shadow: var(--shadow);
+        }
+
+        .transactions-section {
+            width: 100%;
+            max-width: none;
+            margin: 0 0 24px;
+            padding: clamp(20px, 3vw, 30px);
+            overflow-x: auto;
+        }
+
+        .dashboard {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 215px), 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            min-height: 142px;
+            padding: 21px;
+            box-shadow: var(--shadow);
+        }
+
+        .card::before {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--brand);
+            content: "";
+            opacity: 0.75;
+        }
+
+        .card.success::before { background: #16a879; }
+        .card.warning::before { background: #e79b38; }
+        .card h3 {
+            margin: 0 18px 18px 0;
+            color: var(--muted);
+            font-size: 0.76rem;
+            font-weight: 650;
+            letter-spacing: 0.035em;
+        }
+
+        .card h3:hover { color: var(--brand); }
+        .card .value,
+        .card.success .value,
+        .card.warning .value,
+        .card.info .value {
+            color: var(--ink);
+            font-size: clamp(1.65rem, 2.4vw, 2.1rem);
+            font-weight: 750;
+            letter-spacing: -0.055em;
+        }
+
+        .comparison-section,
+        .movement-section,
+        .forecast-panel {
+            margin-bottom: 20px;
+            padding: clamp(20px, 3vw, 28px);
+        }
+
+        .comparison-section h2,
+        .transactions-section h2,
+        .movement-section h2,
+        .forecast-panel h2,
+        .modal-content h2 {
+            margin-bottom: 16px;
+            color: var(--ink);
+            font-size: 1.12rem;
+            font-weight: 720;
+            letter-spacing: -0.025em;
+        }
+
+        .comparison-grid { gap: 14px; }
+
+        .month-data {
+            border: 1px solid var(--line);
+            border-left: 3px solid var(--brand);
+            border-radius: 14px;
+            background: var(--canvas) !important;
+        }
+
+        .month-data h3 { color: var(--ink); }
+
+        .variation {
+            border-radius: 14px;
+            background: linear-gradient(125deg, #6941e8, #8864f5);
+        }
+
+        table {
+            margin-top: 16px;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+        }
+
+        table th {
+            padding: 13px 14px;
+            background: var(--canvas);
+            color: var(--muted);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.035em;
+            text-transform: uppercase;
+        }
+
+        table td {
+            padding: 13px 14px;
+            border-bottom: 1px solid var(--line);
+            color: var(--ink);
+            vertical-align: middle;
+        }
+
+        table tr:hover,
+        table tbody tr { background: var(--surface); }
+        table tbody tr:hover { background: var(--canvas); }
+
+        .form-group {
+            gap: 16px;
+            margin: 18px 0;
+        }
+
+        .form-group label {
+            color: var(--ink);
+            font-size: 0.86rem;
+            font-weight: 620;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea,
+        .modal-content input,
+        .modal-content textarea,
+        #searchProduct,
+        .assistant-controls input {
+            min-height: 44px;
+            border: 1px solid var(--line);
+            border-radius: 11px;
+            background: var(--surface);
+            color: var(--ink);
+            font: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus,
+        .modal-content input:focus,
+        .modal-content textarea:focus,
+        #searchProduct:focus,
+        .assistant-controls input:focus {
+            outline: 3px solid color-mix(in srgb, var(--brand) 18%, transparent);
+            border-color: var(--brand);
+            box-shadow: none;
+        }
+
+        #productFormContainer {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: var(--canvas) !important;
+        }
+
+        .btn {
+            min-height: 42px;
+            padding: 9px 16px;
+            border: 1px solid transparent;
+            border-radius: 11px;
+            background: var(--brand);
+            font: inherit;
+            font-size: 0.9rem;
+            font-weight: 680;
+            transition: background-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            background: var(--brand-dark);
+            box-shadow: 0 6px 16px rgba(105, 65, 232, 0.16);
+        }
+
+        .btn.secondary {
+            border-color: var(--line);
+            background: var(--surface);
+            color: var(--ink);
+        }
+
+        .btn.secondary:hover { background: var(--canvas); }
+        .btn.danger { background: #d94d61; }
+        .btn.danger:hover { background: #bf354b; }
+        .controls { gap: 10px; }
+
+        .badge {
+            border-radius: 999px;
+            font-size: 0.76rem;
+            font-weight: 700;
+        }
+
+        .chart-track,
+        .chart-row {
+            border-color: var(--line);
+            background: var(--canvas);
+        }
+
+        .chart-bar,
+        .legend-dot { background: var(--brand); }
+        .chart-bar.expense,
+        .legend-dot.expense { background: #56a7d8; }
+        .chart-legend,
+        .chart-month,
+        .chart-amount,
+        .chart-description,
+        .sync-help,
+        .sync-status { color: var(--muted); }
+
+        .assistant-panel {
+            padding: clamp(20px, 4vw, 36px);
+        }
+
+        .assistant-preview {
+            border-color: color-mix(in srgb, var(--brand) 28%, var(--line));
+            border-radius: 14px;
+            background: var(--brand-soft);
+        }
+
+        .nova-avatar {
+            border-color: color-mix(in srgb, var(--brand) 30%, var(--line));
+            border-radius: 16px;
+            background: var(--brand-soft);
+            color: var(--brand);
+        }
+
+        .nova-message.user {
+            background: var(--brand);
+            color: #fff;
+        }
+
+        .nova-conversation {
+            min-height: 180px;
+            max-height: 420px;
+            border-radius: 16px;
+        }
+
+        .nova-state[data-state="processing"] .nova-state-dot { background: #8b70ed; }
+
+        details {
+            margin-top: 16px;
+            padding: 14px 16px;
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            background: var(--surface);
+        }
+
+        summary {
+            color: var(--ink);
+            font-weight: 650;
+            cursor: pointer;
+        }
+
+        .modal {
+            background: rgba(22, 18, 38, 0.42);
+            backdrop-filter: blur(7px);
+        }
+
+        .modal-content {
+            padding: clamp(22px, 4vw, 32px);
+        }
+
+        .modal-buttons .btn-save { background: #168a67; }
+        .modal-buttons .btn-cancel {
+            background: var(--canvas);
+            color: var(--ink);
+        }
+
+        .sync-status {
+            padding: 12px 14px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--canvas);
+        }
+
+        @media (min-width: 901px) {
+            body { padding: 32px 36px 40px 284px; }
+            .container { width: min(100%, 1480px); }
+        }
+
+        @media (max-width: 900px) {
+            body { padding: 20px 16px 184px; }
+            .header { margin-bottom: 18px; }
+            .tabs {
+                top: auto;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                display: grid;
+                width: auto;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 5px;
+                margin: 0;
+                padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+                border: 0;
+                border-top: 1px solid var(--line);
+                border-radius: 16px 16px 0 0;
+                background: var(--surface);
+                box-shadow: 0 -8px 26px rgba(34, 24, 72, 0.08);
+            }
+            .tabs::before { display: none; }
+            .tab-btn {
+                min-height: 44px;
+                flex-direction: column;
+                justify-content: center;
+                gap: 2px;
+                padding: 5px 4px;
+                border-radius: 10px;
+                font-size: clamp(0.65rem, 2.4vw, 0.78rem);
+                line-height: 1.15;
+                text-align: center;
+                overflow-wrap: anywhere;
+            }
+            .transactions-section { overflow-x: auto; }
+        }
+
+        @media (max-width: 560px) {
+            body { padding: 16px 12px 184px; }
+            .header { align-items: center; }
+            .header h1 { font-size: 1.28rem; }
+            .theme-toggle { min-height: 40px; padding: 8px 10px; font-size: 0.78rem; }
+            .transactions-section { padding: 17px 13px; }
+            .card { min-height: 125px; padding: 17px; }
+            .dashboard { gap: 10px; }
+            .tab-btn { font-size: 0.66rem; }
+            .assistant-controls { gap: 8px; }
+            .assistant-controls input { flex-basis: 100%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
+    <link rel="stylesheet" href="business-admin.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1 onclick="editTitle()">🎯 Sistema Completo Integrado</h1>
+            <h1 onclick="editTitle()">NOVA | Gestión de inventario</h1>
             <button type="button" class="btn secondary theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Cambiar tema de color">☀️ Modo claro</button>
         </div>
 
         <div class="store-app">
-            <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('estadisticas', this)">📊 Estadísticas</button>
-                <button class="tab-btn" onclick="switchTab('inventario', this)">📦 Inventario</button>
-                <button class="tab-btn" onclick="switchTab('transacciones', this)">💳 Transacciones</button>
-                <button class="tab-btn" onclick="switchTab('asistente', this)">✨ NOVA</button>
-                <button class="tab-btn" onclick="switchTab('ajustes-nova', this)">🧠 Ajustes</button>
-                <button class="tab-btn" onclick="switchTab('configuracion', this)">⚙️ Configuración</button>
+            <div class="tabs" data-section="NOVA / INVENTARIO">
+                <button class="tab-btn active" onclick="switchTab('estadisticas', this)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16M8 15v-4m4 4V7m4 8v-6m4 6V4"/></svg><span>Estadísticas</span></button>
+                <button class="tab-btn" onclick="switchTab('inventario', this)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m4.5 7.7 7.5 4.2 7.5-4.2M12 12v9"/></svg><span>Inventario</span></button>
+                <button class="tab-btn" onclick="switchTab('transacciones', this)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h15m0 0-3-3m3 3-3 3M20 17H5m0 0 3-3m-3 3 3 3"/></svg><span>Transacciones</span></button>
+                <button class="tab-btn" onclick="switchTab('asistente', this)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6 7 7m10 10 1.4 1.4m0-12.8L17 7M7 17l-1.4 1.4"/><circle cx="12" cy="12" r="5"/></svg><span>NOVA</span></button>
+                <button class="tab-btn" onclick="switchTab('ajustes-nova', this)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="m19.4 15 .1.1 1.4 1.1-1.4 2.4-1.7-.7a8 8 0 0 1-1.6.9l-.3 1.8h-2.8l-.3-1.8a8 8 0 0 1-1.6-.9l-1.7.7-1.4-2.4 1.4-1.1a7 7 0 0 1 0-1.9l-1.4-1.1 1.4-2.4 1.7.7a8 8 0 0 1 1.6-.9l.3-1.8h2.8l.3 1.8a8 8 0 0 1 1.6.9l1.7-.7 1.4 2.4-1.4 1.1a7 7 0 0 1 0 1.9Z"/></svg><span>Ajustes</span></button>
+                <button class="tab-btn" onclick="switchTab('configuracion', this)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="m19.4 15 .1.1 1.4 1.1-1.4 2.4-1.7-.7a8 8 0 0 1-1.6.9l-.3 1.8h-2.8l-.3-1.8a8 8 0 0 1-1.6-.9l-1.7.7-1.4-2.4 1.4-1.1a7 7 0 0 1 0-1.9l-1.4-1.1 1.4-2.4 1.7.7a8 8 0 0 1 1.6-.9l.3-1.8h2.8l.3 1.8a8 8 0 0 1 1.6.9l1.7-.7 1.4 2.4-1.4 1.1a7 7 0 0 1 0 1.9Z"/></svg><span>Configuración</span></button>
+                <button class="tab-btn" onclick="switchTab('administracion-negocio', this)"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10h18M5 10v9m4-9v9m6-9v9m4-9v9M3 21h18M12 3 3 8h18l-9-5Z"/></svg><span>Administración</span></button>
             </div>
 
             <!-- TAB: ESTADÍSTICAS -->
@@ -1547,7 +2044,7 @@
                     <div id="replenishment-forecast"></div>
                 </section>
                 <div class="comparison-section">
-                    <h2>📊 Comparación Mensual</h2>
+                    <h2>Comparación mensual</h2>
                     <div class="comparison-grid" id="comparison-grid"></div>
                 </div>
             </div>
@@ -1555,7 +2052,7 @@
             <!-- TAB: INVENTARIO -->
             <div class="tab-content" id="tab-inventario">
                 <div class="transactions-section">
-                    <h2>📦 Gestión de Inventario</h2>
+                    <h2>Gestión de inventario</h2>
                     <div class="controls">
                         <input type="text" id="searchProduct" placeholder="Buscar producto..." style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
                         <button class="btn" onclick="toggleProductForm()">+ Nuevo Producto</button>
@@ -1617,7 +2114,7 @@
             <!-- TAB: TRANSACCIONES -->
             <div class="tab-content" id="tab-transacciones">
                 <div class="transactions-section">
-                    <h2>💳 Agregar Transacción</h2>
+                    <h2>Agregar transacción</h2>
                     <div class="form-group">
                         <div>
                             <label for="fecha">Fecha:</label>
@@ -1641,7 +2138,7 @@
                     </div>
                     <button class="btn" onclick="agregarTransaccion()">Agregar Transacción</button>
 
-                    <h2 style="margin-top: 30px;">🛍️ Registrar venta de inventario</h2>
+                    <h2 style="margin-top: 30px;">Registrar venta de inventario</h2>
                     <div class="form-group">
                         <div>
                             <label for="productoVenta">Producto:</label>
@@ -1654,7 +2151,7 @@
                     </div>
                     <button class="btn" onclick="venderProducto()">Registrar Venta</button>
 
-                    <h2 style="margin-top: 30px;">📋 Últimas Transacciones</h2>
+                    <h2 style="margin-top: 30px;">Últimas transacciones</h2>
                     <table>
                         <thead>
                             <tr>
@@ -1720,7 +2217,7 @@
 
             <div class="tab-content" id="tab-ajustes-nova">
                 <section class="transactions-section">
-                    <h2>🧠 Configuración de NOVA</h2>
+                    <h2>Configuración de NOVA</h2>
                     <p class="sync-help">Personaliza las recomendaciones y la voz de NOVA. Estos ajustes se guardan en este navegador; no cambian el inventario ni requieren una API de inteligencia artificial.</p>
                     <section class="assistant-preview" aria-labelledby="nova-settings-proactive-heading">
                         <h3 id="nova-settings-proactive-heading">Análisis proactivo</h3>
@@ -1760,7 +2257,7 @@
             <!-- TAB: CONFIGURACIÓN -->
             <div class="tab-content" id="tab-configuracion">
                 <div class="transactions-section">
-                    <h2>⚙️ Configuración</h2>
+                    <h2>Configuración</h2>
                     <div class="controls">
                         <button class="btn" onclick="guardarDatos(true)">💾 Guardar Datos</button>
                         <button class="btn" onclick="exportarJSON()">📤 Exportar JSON</button>
@@ -1770,7 +2267,7 @@
                     </div>
                     <input type="file" id="fileInput" accept=".json" style="display: none;">
 
-                    <h2 style="margin-top: 30px;">☁️ Compartir entre dispositivos</h2>
+                    <h2 style="margin-top: 30px;">Compartir entre dispositivos</h2>
                     <p class="sync-help">En cada dispositivo, abre el enlace de la tienda, escribe el código compartido y pulsa Conectar. El código no está incluido en el enlace. Puedes usar 5 caracteres, pero será menos seguro que una contraseña larga; compártelo solo con personas de confianza.</p>
                     <details>
                         <summary>Configuración inicial de la nube (solo la primera vez)</summary>
@@ -1803,6 +2300,9 @@
                     <p class="sync-help">La nube debe configurarse una sola vez. Si el dueño ya preparó el enlace, no necesitas una cuenta Supabase ni la URL o clave: solo el código de la tienda. La página debe estar publicada en HTTPS.</p>
                 </div>
             </div>
+            <section class="tab-content business-admin-root" id="tab-administracion-negocio" aria-label="Administración del negocio">
+                <div id="businessAdminApp"></div>
+            </section>
         </div>
 
     </div>
@@ -1822,7 +2322,7 @@
     <script src="nova-conversation.js"></script>
     <script>
         // ===== VARIABLES GLOBALES =====
-        let titulo = "🎯 Sistema Completo Integrado";
+        let titulo = "NOVA | Gestión de inventario";
         let transacciones = [];
         let productos = [];
         let editando = null;
@@ -1902,8 +2402,14 @@
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
 
-            document.getElementById(`tab-${tabName}`).classList.add('active');
+            const tab = document.getElementById(`tab-${tabName}`);
+            if (!tab || !button) return;
+            tab.classList.add('active');
             button.classList.add('active');
+            document.querySelector('.tabs').dataset.section = tabName === 'administracion-negocio'
+                ? 'NOVA / ADMINISTRACIÓN'
+                : 'NOVA / INVENTARIO';
+            if (tabName === 'administracion-negocio') window.NOVABusinessAdmin?.activate();
         }
 
         // ===== ESTADÍSTICAS =====
@@ -1976,55 +2482,55 @@
 
             dashboard.innerHTML = `
                 <div class="card info">
-                    <h3>📦 Total de productos</h3>
+                    <h3>Total de productos</h3>
                     <div class="value">${productos.length}</div>
                 </div>
                 <div class="card success">
-                    <h3>✅ Productos disponibles</h3>
+                    <h3>Productos disponibles</h3>
                     <div class="value">${productosDisponibles}</div>
                 </div>
                 <div class="card warning">
-                    <h3>⚠️ Bajo stock (1–${umbralStockBajo} unidades)</h3>
+                    <h3>Bajo stock (1–${umbralStockBajo} unidades)</h3>
                     <div class="value">${productosConPocoStock}</div>
                 </div>
                 <div class="card warning">
-                    <h3>⛔ Productos agotados</h3>
+                    <h3>Productos agotados</h3>
                     <div class="value">${productosAgotados}</div>
                 </div>
                 <div class="card info">
-                    <h3>🏷️ Valor del inventario al costo</h3>
+                    <h3>Valor del inventario al costo</h3>
                     <div class="value">$${valorInventario.toFixed(2)}</div>
                 </div>
                 <div class="card success">
-                    <h3>💰 Total Ingresos</h3>
+                    <h3>Total ingresos</h3>
                     <div class="value">$${stats.ingresos.toFixed(2)}</div>
                 </div>
                 <div class="card warning">
-                    <h3>📦 Costo de productos vendidos</h3>
+                    <h3>Costo de productos vendidos</h3>
                     <div class="value">$${stats.costoProductos.toFixed(2)}</div>
                 </div>
                 <div class="card warning">
-                    <h3>📤 Gastos registrados</h3>
+                    <h3>Gastos registrados</h3>
                     <div class="value">$${stats.egresos.toFixed(2)}</div>
                 </div>
                 <div class="card success">
-                    <h3>📈 Ganancia Neta</h3>
+                    <h3>Ganancia neta</h3>
                     <div class="value">${stats.ganancia === null ? 'Incompleta' : `$${stats.ganancia.toFixed(2)}`}</div>
                 </div>
                 <div class="card info">
-                    <h3>🛍️ Unidades vendidas</h3>
+                    <h3>Unidades vendidas</h3>
                     <div class="value">${stats.unidadesVendidas}</div>
                 </div>
                 <div class="card info">
-                    <h3>📊 Venta promedio</h3>
+                    <h3>Venta promedio</h3>
                     <div class="value">$${stats.promedio.toFixed(2)}</div>
                 </div>
                 <div class="card info">
-                    <h3>📅 Período</h3>
+                    <h3>Período</h3>
                     <div class="value">${String(stats.mes).padStart(2, '0')}/${stats.año}</div>
                 </div>
                 ${stats.ventasSinCostoCantidad > 0 ? `<div class="card warning">
-                    <h3>⚠️ Ventas sin costo registrado</h3>
+                    <h3>Ventas sin costo registrado</h3>
                     <div class="value">${stats.ventasSinCostoCantidad} · $${stats.ventasSinCosto.toFixed(2)}</div>
                 </div>` : ''}
             `;
@@ -2327,6 +2833,13 @@
                 recomendaciones
             };
             const respuesta = NOVAConversation.construirRespuestaAnalisis(resumen);
+            const resumenNegocio = window.NOVABusinessAdmin?.resumenParaNOVA();
+            const necesitaAdministracion = intenciones.tareas.includes('administracion');
+            const respuestaCompleta = resumenNegocio?.texto
+                ? `${respuesta}\n\n${resumenNegocio.texto}`
+                : necesitaAdministracion
+                    ? `${respuesta}\n\n${resumenNegocio?.mensaje || 'No he cargado los datos de Administración del negocio desde Supabase. Abre esa sección para consultar cifras reales.'}`
+                    : respuesta;
             novaUltimaIntencionConversacional = 'analisis-integral';
             novaUltimasNovedades = recomendaciones;
             novaFirmaNovedades = JSON.stringify(recomendaciones);
@@ -2335,7 +2848,18 @@
                 recomendaciones.length
             );
             novaUltimoAnalisisIntegral = resumen;
-            responderNOVA(respuesta);
+            responderNOVA(respuestaCompleta);
+        }
+
+        function responderConsultaAdministracionNOVA(pregunta) {
+            const respuesta = window.NOVABusinessAdmin?.respuestaConsultaNOVA(pregunta);
+            if (respuesta) {
+                responderNOVA(respuesta);
+                return;
+            }
+            const resumen = window.NOVABusinessAdmin?.resumenParaNOVA();
+            responderNOVA(resumen?.texto || resumen?.mensaje
+                || 'Aún no he cargado los datos de Administración del negocio. Abre esa sección para conectarla con Supabase y vuelve a preguntarme.');
         }
 
         function renderizarAnalisisProactivoNOVA() {
@@ -3421,6 +3945,10 @@
                 responderNovedadesNOVA();
                 return;
             }
+            if (intenciones.tareas.includes('administracion')) {
+                responderConsultaAdministracionNOVA(comando);
+                return;
+            }
             if (intenciones.tareas.includes('explicaciones')) {
                 responderExplicacionNOVA(comando);
                 return;
@@ -3745,6 +4273,7 @@
 
             if (contextoProducto && /\b(cuanto|cuanta|stock|existencia|existencias|queda|quedan|ese|esa|anterior)\b/.test(comando)) {
                 responderNOVA(`${contextoProducto.nombre}: quedan ${Number(contextoProducto.cantidad) || 0} unidades disponibles.`);
+
                 return;
             }
             if (intenciones.tareas.includes('consultas') || intenciones.tareas.includes('historial')) {
@@ -3803,7 +4332,7 @@
         }
 
         function aplicarTemaGuardado() {
-            let tema = 'dark';
+            let tema = 'light';
             try {
                 const temaGuardado = localStorage.getItem('inventarioTheme');
                 if (temaGuardado === 'light' || temaGuardado === 'dark') tema = temaGuardado;
@@ -4238,6 +4767,7 @@
 
         function normalizarDatos(datos) {
             titulo = typeof datos.titulo === 'string' && datos.titulo ? datos.titulo : titulo;
+            if (titulo === '🎯 Sistema Completo Integrado') titulo = 'NOVA | Gestión de inventario';
             productos = Array.isArray(datos.productos) ? datos.productos.map(p => ({
                 ...p,
                 id: p.id ?? generarId(),
@@ -4255,7 +4785,9 @@
             tombstones = Array.isArray(datos.tombstones) ? datos.tombstones : [];
             datosActualizadosEn = datos.updatedAt || new Date().toISOString();
             tituloActualizadoEn = datos.tituloUpdatedAt
-                || (titulo !== '🎯 Sistema Completo Integrado' ? datos.updatedAt || new Date().toISOString() : '1970-01-01T00:00:00.000Z');
+                || (titulo !== 'NOVA | Gestión de inventario' && datos.titulo !== '🎯 Sistema Completo Integrado'
+                    ? datos.updatedAt || new Date().toISOString()
+                    : '1970-01-01T00:00:00.000Z');
             document.querySelector('h1').textContent = titulo;
         }
 
@@ -4746,7 +5278,7 @@
                 if (confirm('🚨 ¡ÚLTIMA ADVERTENCIA!')) {
                     productos.forEach(p => agregarTumba('producto', p.id));
                     transacciones.forEach(t => agregarTumba('transaccion', t.id));
-                    titulo = "🎯 Sistema Completo Integrado";
+                    titulo = "NOVA | Gestión de inventario";
                     transacciones = [];
                     productos = [];
                     datosActualizadosEn = new Date().toISOString();
@@ -4771,6 +5303,26 @@
         document.getElementById('editModal')?.addEventListener('click', (e) => {
             if (e.target.id === 'editModal') cerrarModal();
         });
+
+        window.NOVABusinessBridge = {
+            getConfig: obtenerConfigSincronizacion,
+            getProducts: () => productos.map(producto => ({ ...producto })),
+            isInventoryReady: () => syncRevision !== null && !syncDirty && !sincronizando,
+            applyInventory(payload, revision) {
+                if (!payload || !Array.isArray(payload.productos) || !Array.isArray(payload.transacciones)
+                    || !Number.isSafeInteger(Number(revision))) {
+                    throw new Error('La respuesta de inventario recibida no es válida.');
+                }
+                aplicarEstado(payload);
+                syncBase = JSON.parse(JSON.stringify(payload));
+                syncRevision = Number(revision);
+                syncDirty = false;
+                actualizarDashboard();
+                renderizarProductos();
+                renderizarTransacciones();
+            }
+        };
     </script>
+    <script src="business-admin.js"></script>
 </body>
 </html> 
